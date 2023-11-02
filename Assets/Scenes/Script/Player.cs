@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         GroundCheckRadius = GroundCheck.GetComponent<CircleCollider2D>().radius;
         respawnPoint = transform.position;
-    } 
+    }
 
     // Update is called once per frame
     void Update()
@@ -39,9 +39,9 @@ public class Player : MonoBehaviour
             }
         }
 
-        horizontal = Input.GetAxis("Horizontal")*speed;
-        rb.velocity = new Vector2(horizontal,rb.velocity.y);//(x,y)
-        animator.SetFloat("moveX",Mathf.Abs( horizontal));
+        horizontal = Input.GetAxis("Horizontal") * speed;
+        rb.velocity = new Vector2(horizontal, rb.velocity.y);//(x,y)
+        animator.SetFloat("moveX", Mathf.Abs(horizontal));
         if (horizontal > 0 && !flipRight)
         {
             Flip();
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         else if (horizontal < 0 && flipRight)
         {
             Flip();
-        }  
+        }
     }
     void CheckingGround()
     {
@@ -60,6 +60,8 @@ public class Player : MonoBehaviour
         if (collision.tag == "DeadZone")
         {
             transform.position = respawnPoint;
+        }else if(collision.tag == "checkpoint") {
+            respawnPoint = transform.position;
         }
     }
     void Flip()
